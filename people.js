@@ -10,6 +10,18 @@ const people = [
   "Aurene",
 ];
 
-console.log(people);
+const ages = [
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  1
+]
 
-module.exports = 'hello';
+// console.log(people);
+
+module.exports = {people, ages};
