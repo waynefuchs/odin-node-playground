@@ -13,20 +13,24 @@ const httpRequest = (req, res) => {
   res.setHeader("Content-type", "text/html");
 
   // Check for '/' route
-  if(req.url === "/") {
-    fs.readFile("./views/index.html", (err, data) => {
-      if(err) console.log(err);
-      res.end(data);
-    });
-    return;
+  let path = "./views/";
+  switch(req.url) {
+    case "/":
+      path += 'index.html';
+      break;
+    case "/about":
+      path += 'about.html';
+      break;
+    default:
+      path += '404.html'
+      break;
   }
-  
-  // otherwise...
-  fs.readFile("./views/404.html", (err, data) => {
+
+  fs.readFile(path, (err, data) => {
     if(err) console.log(err);
-    // res.write(data);   // Not required unless writing more than one thing
     res.end(data);
   });
+  
 };
 
 const serverPort = 3000;
