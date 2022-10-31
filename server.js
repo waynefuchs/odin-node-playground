@@ -1,4 +1,5 @@
 const fs = require("fs");
+const { stat } = require("fs/promises");
 const http = require("http");
 
 const httpServerStart = () => {
@@ -6,31 +7,37 @@ const httpServerStart = () => {
 };
 
 const httpRequest = (req, res) => {
-  if(req.url === "/favicon.ico") return;
+  if (req.url === "/favicon.ico") return;
 
   // Send html header
   console.log(`request made: ${req.url}`);
   res.setHeader("Content-type", "text/html");
 
   // Check for '/' route
+  let statusCode = 200;
   let path = "./views/";
-  switch(req.url) {
+  switch (req.url) {
     case "/":
-      path += 'index.html';
+      path += "index.html";
       break;
     case "/about":
-      path += 'about.html';
+      path += "about.html";
       break;
     default:
-      path += '404.html'
+      statusCode = 404;
+      path += "404.html";
       break;
   }
 
   fs.readFile(path, (err, data) => {
-    if(err) console.log(err);
+    if (err) {
+      console.log(err);
+      return;
+    }
+
+    res.statusCode = statusCode;
     res.end(data);
   });
-  
 };
 
 const serverPort = 3000;
