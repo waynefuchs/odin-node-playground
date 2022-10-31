@@ -23,6 +23,11 @@ const httpRequest = (req, res) => {
     case "/about":
       path += "about.html";
       break;
+    case "/redirect":
+      res.statusCode = 301;
+      res.setHeader('Location', '/');
+      res.end();
+      return;
     default:
       statusCode = 404;
       path += "404.html";
