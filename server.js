@@ -1,6 +1,9 @@
+const _ = require("lodash");
 const fs = require("fs");
 const { stat } = require("fs/promises");
 const http = require("http");
+
+console.log("If you see this, something went wrong.");
 
 const httpServerStart = () => {
   console.log("Server started listening");
